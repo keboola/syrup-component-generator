@@ -1,4 +1,4 @@
-Syrup Component Generator v0.0.1
+Syrup Component Generator
 
 You can provide --namespace and --short-name either as arguments or via interactive interface.
 (Note that namespace must contain Bundle at the end).
