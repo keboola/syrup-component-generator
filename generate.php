@@ -5,7 +5,7 @@
  * Time: 17:30
  */
 
-$version = '0.0.1';
+$version = '0.0.2';
 
 //print "" . PHP_EOL . PHP_EOL;
 print <<<EOT
@@ -57,12 +57,12 @@ foreach ($argv as $arg) {
 
 if ($namespace == null) {
 	print "Enter namespace for your component (ie.: Keboola/DbExtractorBundle): " . PHP_EOL;
-	$namespace = fgets(STDIN);
+	$namespace = stream_get_line(STDIN, 128, "\n");
 }
 
 if ($shortName == null) {
 	print "Enter short name for your component (ie.: ex-db): " . PHP_EOL;
-	$shortName = fgets(STDIN);
+	$shortName = stream_get_line(STDIN, 64, "\n");
 }
 
 
