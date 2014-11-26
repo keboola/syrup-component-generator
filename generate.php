@@ -5,7 +5,7 @@
  * Time: 17:30
  */
 
-$version = '0.0.1';
+$version = '0.0.3';
 
 //print "" . PHP_EOL . PHP_EOL;
 print <<<EOT
@@ -89,6 +89,10 @@ passthru('php -d memory_limit=-1 composer.phar install');
 print str_pad('Generating component skeleton', 50, ' ');
 passthru('php vendor/keboola/syrup/app/console syrup:generate:component --namespace="'.$namespace.'" --short-name="'.$shortName.'"');
 
+// create ES mapping template
+print str_pad('Generating Elasticsearch mapping', 50, ' ');
+createESMapping();
+
 function printError($message)
 {
 	print <<<EOT
@@ -136,7 +140,7 @@ function createComposerJson($namespace, $shortName)
 		'authors'   => [],
 		'repositories'  => [],
 		'require'   => [
-			'syrup/component-bundle'    => '~1.9.23'
+			'syrup/component-bundle'    => '~1.10.2'
 		],
 		'require-dev'   => [
 			'phpunit/phpunit'   => '3.7.*'
@@ -171,4 +175,22 @@ function createComposerJson($namespace, $shortName)
 	$filename = 'composer.json';
 	fopen($filename, 'w+');
 	file_put_contents($filename, json_encode($json));
+}
+
+function createESMapping()
+{
+	$content = <<<EOT
+{% extends 'SyrupComponentBundle:Elasticsearch:mappingDefault.json.twig' %}
+
+{% block params %}
+"params": {
+	"dynamic": "strict",
+	"enabled": false
+},
+{% endblock %}
+EOT;
+
+	$filename = 'Resources/views/Elasticsearch/mapping.json.twig';
+	fopen($filename, 'w+');
+	file_put_contents($filename, $content);
 }
