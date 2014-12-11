@@ -170,5 +170,5 @@ function createComposerJson($namespace, $shortName)
 
 	$filename = 'composer.json';
 	fopen($filename, 'w+');
-	file_put_contents($filename, json_encode($json));
+	file_put_contents($filename, json_encode($json, JSON_PRETTY_PRINT));
 }
