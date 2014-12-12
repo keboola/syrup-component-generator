@@ -140,7 +140,7 @@ function createComposerJson($namespace, $shortName)
 		'authors'   => [],
 		'repositories'  => [],
 		'require'   => [
-			'syrup/component-bundle'    => '~1.10.2'
+			'syrup/component-bundle'    => '~1.10'
 		],
 		'require-dev'   => [
 			'phpunit/phpunit'   => '3.7.*'
