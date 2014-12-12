@@ -5,7 +5,7 @@
  * Time: 17:30
  */
 
-$version = '0.0.3';
+$version = '0.0.4';
 
 //print "" . PHP_EOL . PHP_EOL;
 print <<<EOT
@@ -57,12 +57,12 @@ foreach ($argv as $arg) {
 
 if ($namespace == null) {
 	print "Enter namespace for your component (ie.: Keboola/DbExtractorBundle): " . PHP_EOL;
-	$namespace = fgets(STDIN);
+	$namespace = stream_get_line(STDIN, 128, "\n");
 }
 
 if ($shortName == null) {
 	print "Enter short name for your component (ie.: ex-db): " . PHP_EOL;
-	$shortName = fgets(STDIN);
+	$shortName = stream_get_line(STDIN, 64, "\n");
 }
 
 
@@ -174,7 +174,7 @@ function createComposerJson($namespace, $shortName)
 
 	$filename = 'composer.json';
 	fopen($filename, 'w+');
-	file_put_contents($filename, json_encode($json));
+	file_put_contents($filename, json_encode($json, JSON_PRETTY_PRINT));
 }
 
 function createESMapping()
