@@ -86,11 +86,11 @@ print 'OK' . PHP_EOL;
 passthru('php -d memory_limit=-1 composer.phar install');
 
 // generate component
-print str_pad('Generating component skeleton', 50, ' ');
+print str_pad('Generating component skeleton', 50, ' ') . PHP_EOL;
 passthru('php vendor/keboola/syrup/app/console syrup:generate:component --namespace="'.$namespace.'" --short-name="'.$shortName.'"');
 
 // create ES mapping template
-print str_pad('Generating Elasticsearch mapping', 50, ' ');
+print str_pad('Generating Elasticsearch mapping', 50, ' ') . PHP_EOL;
 createESMapping();
 
 function printError($message)
@@ -190,6 +190,10 @@ function createESMapping()
 {% endblock %}
 EOT;
 
+	if (!file_exists('Resources/views/Elasticsearch')) {
+		mkdir('Resources/views/Elasticsearch');
+	}
+	
 	$filename = 'Resources/views/Elasticsearch/mapping.json.twig';
 	fopen($filename, 'w+');
 	file_put_contents($filename, $content);
